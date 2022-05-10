@@ -9,4 +9,4 @@ https://ryankarlos.github.io/GrantNav_Challenge2/
 
 * Vizualisation built in D3js after parsing twitter data from API using Python.More details about the topic in https://github.com/ryankarlos/DataViz_with_Javascript/tree/master/Snakebite_Viz#readme
 
-https://ryankarlos.github.io/TweetViz/
+https://ryankarlos.github.io/TweetsViz/

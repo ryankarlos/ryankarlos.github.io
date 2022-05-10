@@ -1,0 +1,152 @@
+body{
+    margin:0;
+}
+
+.header {
+    padding: 10px;
+    text-align: center;
+    background: cyan;
+}
+
+.header h1 {
+    font-size: 30px;
+}
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+    padding: 5px;
+}
+
+.title {
+   height:40px;
+	 background-color: black;
+}
+
+#title-header {
+	font-family: Roboto;
+	text-align: center;
+  font-size: 2.0rem;
+	height: 70px;
+	color: white;
+}
+
+.selection {
+  height: 100px;
+  padding: 25px 50px 55px 50px;
+  color:black;
+  background-color:#F0F8FF
+}
+
+.recipient {
+  left:10%
+}
+.year {
+  left: 50%
+}
+.theme {
+  left: 40%
+}
+
+.sunrise_label {
+  height: 30px;
+   padding: 25px 30px 45px 10px;
+}
+
+.sunrise {
+  height: 200px;
+   padding: 15px 30px 45px 10px;
+    left:400px;
+}
+
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+  font-size: 1.0rem;
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .2;
+}
+
+.link:hover {
+  stroke-opacity: .5;
+}
+
+
+.network_links {
+  stroke: #000;
+  stroke-opacity: 2.8;
+}
+
+.network_nodes {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+path.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+input[type="radio"]
+{
+font-size:20px;
+
+}
+
+.ticks {
+  font: 10px sans-serif;
+}
+
+.track,
+.track-inset,
+.track-overlay {
+  stroke-linecap: round;
+}
+
+.track {
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 10px;
+}
+
+.track-inset {
+  stroke: #ddd;
+  stroke-width: 8px;
+}
+
+.track-overlay {
+  pointer-events: stroke;
+  stroke-width: 50px;
+  stroke: transparent;
+  cursor: crosshair;
+}
+
+.handle {
+  fill: #fff;
+  stroke: #000;
+  stroke-opacity: 0.5;
+  stroke-width: 1.25px;
+}
+
+path {
+  stroke: #fff;
+}
+
+
+.footer {
+    padding: 30px;
+    text-align: center;
+      background-color:#F0F8FF
+}

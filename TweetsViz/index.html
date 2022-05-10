@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+			<meta charset="utf-8">
+			<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+			<link type="text/css" rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+	<div class="header">
+	  <h1>SnakebiteViz | An Interactive Tool for Global Health Professionals</h1>
+	  <h3>Ryan Nazareth | @rkn0386.</h3>
+	</div>
+
+	<div class="topnav">
+  <button class ="button1">Home</a>
+  <button class="button2">LDA</a>
+</div>
+
+	<div class="row">
+	  <div class="leftcolumn">
+	      <h2 style = "text-align: center;  margin-top: 20px;">Where are tweets coming from ?</h2>
+				<div class = "leftcoloptions">
+								<div id="slider"></div>
+								<div class = "legendfav">
+												<div id = "legend-title"></div>
+												<div id = "legend"></div>
+								</div>
+								<div id="Month">Month:
+									<span id="selectedMonth"></span>
+								</div>
+								<div id="vis">
+											<button type="button" id="zoom-button">Reset</button>
+											<button type="button" id="play-button" >Play</button>
+											<button type="button" id="pause-button">Pause</button>
+											<button type="button" id="stop-button">Stop</button>
+								</div>
+
+				</div>
+				<div id = "map"></div>
+	  </div>
+	  <div class="rightcolumn">
+	      <h2 style = "text-align: center; margin-top: 23px;">Frequency of tweets over time</h2>
+				<div id = "tweet-time" style = "font-size: 20px;"></div>
+				<div></div>
+				<div></div>
+				<div  id="opts" style = "margin-left: 130px; padding-top: 20px;">
+							<select id="select-bar" style = "font-size: 15px; height: 50%; margin-bottom: 13px;">
+										<option value="Favourites" selected="selected" style = "font-size: 15px;">Favourites</option>
+										<option value="Retweets" style = "font-size: 15px; height: 50%">Retweets</option>
+							</select>
+				</div>
+				<div id = "bar"></div>
+	  </div>
+	</div>
+
+<div id = "LDA-description">
+				<p style = "border: 5px solid grey; 10px; padding: 25px;">
+					<b> Latent Dirichlet Allocation (LDA) is a topic modelling technique, used to
+						classify text in a document to a particular topic. It builds a topic per document model
+						and words per topic model, modeled as Dirichlet distributions.
+					<br>
+					<br>
+					Below is a visualisation of the output of the LDA model for 5 topics fitted using the Python package gensim.
+					The visualisation was generated using the LDAvis package. Hover around
+					the different topics (circles) and check the distribution of words in the right panel.
+				 </b>
+				</p>
+</div>
+
+<div id = "lda" style = "padding-left: 250px;">
+</div>
+
+	<div class="footer">
+	  <h4>This work is produced by Ryan Nazareth</h4>
+	</div>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/queue.v1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>-->
+<script src = "http://underscorejs.org/underscore-min.js"></script>
+<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+ <script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+<script src="d3-tip.js"></script>
+
+<script type="text/javascript" src ="map.js"></script>
+<script type="text/javascript" src ="tweets_time.js"></script>
+<script src="ldavis.js"></script>
+<script>
+var vis = new LDAvis("#lda", "lda.json");
+</script>
+
+</body>
+
+</html>

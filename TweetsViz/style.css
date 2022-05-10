@@ -1,0 +1,392 @@
+body{
+    margin:0;
+}
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    text-align: center;
+    background: orange;
+}
+
+.header h1 {
+    font-size: 30px;
+}
+
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+    padding: 5px;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 52%;
+    margin-top: 1px;
+    background-color: #CCFFFF;
+}
+
+
+.leftcoloptions {
+  margin-left: 20px;
+  margin-top:57px;
+  width:95%;
+  display:inline-block;
+}
+
+.legendfav{
+ float:right;
+ width: 10%;
+ height: 15%;
+ padding-right: 50px;
+}
+
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 47%;
+    padding-left: 18px;
+    margin-top: 1px;
+    background-color: #CCFFFF;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+.footer {
+    padding: 10px;
+    text-align: center;
+    background: black;
+    color: white;
+    margin-top: 1px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+
+.button1 {
+    background-color: #4CAF50;
+    color: white;
+		text-align: center;
+    font-size: 16px;
+    float: left;
+    position: relative;
+    left: 45%;
+    padding: 14px 16px;
+    cursor: pointer;
+}
+
+.button2 {
+    background-color: #f44336;;
+    text-align: center;
+    float: left;
+    position: relative;
+    left: 45%;
+    font-size: 16px;
+    padding: 14px 16px;
+    cursor: pointer;
+}
+
+.button1:hover {
+    background-color: grey; /* Green */
+}
+
+.button2:hover {
+    background-color: grey; /* Green */
+}
+
+#tweet-time {
+		width: 100%;
+		height: 450px;
+}
+
+#map {
+    width: 100%;
+		height: 800px;
+}
+
+#bar {
+    width: 100%;
+		height: 523px;
+    margin-left: 0px;
+}
+
+#legend{
+		width: 35%;
+		height: 10%;
+    color: white !important;
+        }
+
+#legend-title{
+			width: 50%;
+			height: 4%;
+	        }
+
+#opts{
+	width: 4%;
+	height: 3%;
+	font-size: 40px;
+}
+
+
+#path {
+  fill: grey;
+  stroke: white;
+  stroke-width: .5px;
+}
+
+#path:hover {
+  fill: red;
+}
+
+#LDA-description{
+width:75%;
+height: 220px;
+padding-left: 200px;
+padding-top: 40px;
+padding-bottom: 50px;
+font-size: 22px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.arc {
+  fill: none;
+  stroke: black;
+  stroke-width: 8px;
+  stroke-linecap: round;
+}
+
+
+.bar {
+  fill: #0080FF
+}
+
+.bar:hover {
+  fill: #003366
+}
+
+.text {
+  fill: black;
+  font-family: sans-serif;
+	font-weight: bold;
+	font-size: 35px;
+}
+
+
+.xaxis .tick.major {
+    fill: black;
+    stroke: black;
+    stroke-width: 0.1;
+    opacity: 0.7;
+}
+
+.slideraxis {
+    fill: black;
+    stroke: black;
+    stroke-width: 0.4;
+    opacity: 1;
+}
+
+.domain {
+  fill: none;
+  stroke: none;
+}
+
+
+text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+
+.ticks {
+      font-size: 10px;
+    }
+
+
+div.tooltip {
+		text-align: center;
+		width: 1%;
+		height: 1%;
+		padding: 2px;
+		font: 12px sans-serif;
+		background: lightsteelblue;
+		border: 0px;
+		border-radius: 8px;
+		pointer-events: none;
+}
+
+/* Tooltip CSS */
+ .d3-tip {
+ line-height: 1.5;
+ font-weight: 400;
+ font-family:"avenir next", Arial, sans-serif;
+ padding: 6px;
+ background: rgba(0, 0, 0, 0.6);
+ color: #FFA500;
+ border-radius: 1px;
+ pointer-events: none;
+ }
+
+ /* Creates a small triangle extender for the tooltip */
+ .d3-tip:after {
+   box-sizing: border-box;
+   display: inline;
+   font-size: 8px;
+   width: 100%;
+   line-height: 1.5;
+   color: rgba(0, 0, 0, 0.6);
+   position: absolute;
+   pointer-events: none;
+
+ }
+ /* Northward tooltips */
+ .d3-tip.n:after {
+   content: "\25BC";
+   margin: -1px 0 0 0;
+   top: 50%;
+   left: 0;
+   text-align: center;
+ }
+
+#vis{
+    margin-top: 30px;
+		height: 40%;
+		width: 60%;
+}
+
+#slider {
+  height: 20px;
+  width: 45%;
+}
+
+.ui-slider .ui-slider-handle {
+			width: 1.5em !important;
+			height: 26px !important;
+			background-color: orange;
+}
+
+.legend {
+      padding: 10px;
+      font: 10px sans-serif;
+      box-shadow: 2px 2px 1px #888;
+  }
+
+#Month {
+    margin-top: 10px;
+		font-size: 20px;
+}
+
+#selectedMonth {
+    color: red;
+    font-weight: bold;
+		font-size: 20px;
+}
+
+  #play-button{
+  background: #f08080;
+  padding-right:1%;
+  border-radius: 3px;
+  border:none;
+  color:white;
+  margin-right: 15px;
+  padding: 0 12px;
+  width:13%;
+  cursor:pointer;
+  height:25px;
+  font-size: 13px;
+  }
+
+
+#play-button:hover {
+      background-color: #696969;
+}
+
+#pause-button {
+      background: #f08080;
+      padding-right: 1%;
+      border-radius: 3px;
+      border: none;
+      color: white;
+      padding: 0 12px;
+			margin-right: 15px;
+      width: 14%;
+      cursor: pointer;
+      height:25px;
+      font-size: 13px;
+}
+
+#pause-button:hover {
+      background-color: #696969;
+
+}
+
+#stop-button{
+      background: #f08080;
+      padding-right: 1%;
+      border-radius: 3px;
+      border: none;
+      color: white;
+      padding: 0 12px;
+      width:14%;
+      cursor: pointer;
+      height:25px;
+      font-size: 13px;
+}
+
+#stop-button:hover{
+      background-color: #696969;
+
+}
+
+#zoom-button{
+background: #f08080;
+border-radius: 3px;
+border:none;
+color:white;
+margin-right: 15px;
+padding: 0 12px;
+width:14%;
+cursor:pointer;
+height:25px;
+font-size: 13px;
+}
+
+
+#zoom-button:hover {
+      background-color: #696969;
+    }

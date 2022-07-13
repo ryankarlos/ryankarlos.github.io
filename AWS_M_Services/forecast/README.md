@@ -1,4 +1,10 @@
-### AWS Forecast 
+
+---
+layout: post
+title: AWS Forecast 
+tags: AWS Forecast example Manning Dataset
+categories: ML, timeseries
+---
 
 <img src="https://github.com/ryankarlos/AWS-ML-services/blob/master/screenshots/forecast/aws_forecast_architecture.png" height=500 width=1000></img>
 
@@ -13,7 +19,7 @@ import data into S3, create an AWS forecast dataset and import data into it from
 train a predictor and then forecast using the model. 
 
 
-#### Data prep 
+## Data prep 
 
 The functions in modules `prepare_data_for_s3.py` filter the existing dataset to
 only include historical data for one year (2015) and then reformat the dataset
@@ -92,7 +98,7 @@ check_job_status(dataset_import_job_arn, job_type="import_data")
 <img src="https://github.com/ryankarlos/AWS-ML-services/blob/master/screenshots/forecast/manning-dashboard.png" ></img>
 
 
-#### Model Training
+## Model Training
 
 Create a predictor (an Amazon Forecast model) that is trained using the target time series. 
 You can use predictors to generate forecasts based on your time-series data.
@@ -126,7 +132,7 @@ check_job_status(predictor_arn, job_type="training")
 ```
 
 
-### Backtest results
+## Backtest results
 
 Amazon Forecast provides following metrics to evaluate predictors.
 Quoting the following from AWS docs 
@@ -202,7 +208,7 @@ plot_backtest_metrics(error_metrics)
 <img src="https://github.com/ryankarlos/AWS-ML-services/blob/master/screenshots/forecast/manning-backtest-results-plot.png" ></img>
 
 
-#### Forecast and query
+## Forecast and query
 
 Now we have a trained model so we can create a forecast. This
 includes predictions for every item (item_id) in the dataset group 
@@ -234,7 +240,7 @@ df = create_forecast_plot(forecast_response)
 <img src="https://github.com/ryankarlos/AWS-ML-services/blob/master/screenshots/forecast/manning-forecast-p10-p50-p90-plot.png" ></img>
 
 
-#### Terminating resources
+## Terminating resources
 
 Finally we can tear down all the AWS Forecast resources: predictor, forecast and 
 dataset group 

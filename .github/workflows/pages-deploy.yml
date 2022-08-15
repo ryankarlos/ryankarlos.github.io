@@ -26,7 +26,7 @@ jobs:
         with:
           ruby-version: 2.7
           bundler-cache: true
-      - name: Install and Build
+      - name: Build site contents
         run: |
           JEKYLL_ENV=production bundle exec jekyll build # defaults output to '/_site'
       - name: Upload artifact

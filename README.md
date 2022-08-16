@@ -1,7 +1,7 @@
  [![Gem Version](https://img.shields.io/badge/gem-v5.2.1-green)](https://rubygems.org/gems/jekyll-theme-chirpy)
  [![Build Status](https://github.com/ryankarlos/ryankarlos.github.io/workflows/build/badge.svg?branch=master&event=push)](https://github.com/ryankarlos/ryankarlos.github.io/actions?query=branch%3Amaster+event%3Apush)
 
-#Website for Data Science and Cloud Blogs
+# Website for Data Science and Cloud Blogs
 ___
 
 The website containing all my blogs can be accessed [here](https://www.ryannazareth.com/)

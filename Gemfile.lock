@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/netrics/jekyll-remote-include.git
+  revision: a230e824783d5c6783235d5a05bff17d6bb11324
+  specs:
+    jekyll-remote-include (1.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -114,6 +120,7 @@ PLATFORMS
 DEPENDENCIES
   faraday-retry
   html-proofer (~> 3.18)
+  jekyll-remote-include!
   jekyll-theme-chirpy (~> 5.2, >= 5.2.1)
   tzinfo (~> 1.2)
   tzinfo-data

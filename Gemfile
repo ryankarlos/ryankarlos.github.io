@@ -6,6 +6,9 @@ gem "jekyll-theme-chirpy", "~> 5.2", ">= 5.2.1"
 
 gem "html-proofer", "~> 3.18"
 
+group :jekyll_plugins do
+    gem 'jekyll-remote-include', :github => 'netrics/jekyll-remote-include'
+end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.

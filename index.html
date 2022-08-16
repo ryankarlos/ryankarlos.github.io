@@ -12,8 +12,7 @@ title: Blog
     </h1>
 
     <span class="post-date">{{ post.date | date_to_string }}</span>
-
-    {{ post.content }}
+    {{ post.content | remove_first:"Understanding VPC terminology" | truncatewords: 50  }}
   </div>
   {% endfor %}
 </div>

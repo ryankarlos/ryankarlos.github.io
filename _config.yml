@@ -21,12 +21,11 @@ timezone: Europe/London
 # ↓ --------------------------
 
 title: Ryan Nazareth                          # the main title
-hometitle: Latest Blogs
 
-tagline: Blogs on all things Data Science and the Public Cloud   # it will display as the sub-title
+tagline: Machine Learning, Public Cloud and Big Data   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  Blogs on all things Data Science and the Public Cloud.
+  Blogs on all things Data Science and the Public Cloud
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://.ryannazareth.com'

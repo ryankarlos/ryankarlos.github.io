@@ -21,6 +21,7 @@ timezone: Europe/London
 # ↓ --------------------------
 
 title: Ryan Nazareth                          # the main title
+hometitle: Latest Blogs
 
 tagline: Blogs on all things Data Science and the Public Cloud   # it will display as the sub-title
 
@@ -59,7 +60,7 @@ social:
 #     light  - Use the light color scheme
 #     dark   - Use the dark color scheme
 #
-theme_mode:  light  # [light|dark]
+theme_mode:   # [light|dark]
 
 # The CDN endpoint for images.
 # Notice that once it is assigned, the CDN url
@@ -69,13 +70,13 @@ theme_mode:  light  # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: images/bio-photo.jpg
+avatar: screenshots/bio-photo.jpg
 
 # boolean type, the global switch for ToC in posts.
 toc: true
 
 comments:
-  active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
+  active: disqus        # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
   # The active options are as follows:
   disqus:
     shortname: www-ryannazareth-com

@@ -5,6 +5,11 @@ layout: page
 
 {% include lang.html %}
 
+{% assign page_title = "" | append: "Blogs" %}
+
+
+<h1 style="text-align:center">{{ page_title }}</h1>
+
 {% assign pinned = site.posts | where: "pin", "true" %}
 {% assign default = site.posts | where_exp: "item", "item.pin != true and item.hidden != true" %}
 

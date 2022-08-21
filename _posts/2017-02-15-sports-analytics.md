@@ -29,26 +29,31 @@ The next section discusses the analytics strategy used in this paper to gain ins
 The dataset contains over 30,000 observations and 25 attributes, some of which include shot type, shot distance, spatial coordinates for shots made, opponent, season, minutes remaining when shot was made and a binary “shot made” flag which is the label for the dataset indicating whether a shot was made or missed.Seven columns which provide no benefit for the data analysis process are dropped e.g. Team ID, game event ID, game ID etc. These also included redundant measures e.g. ‘matchup’ which correlated with another column ‘opponent’. A couple of the features also include coordinates for spatial locations where Kobe shot the ball from. As a first step in the exploratory analysis process, a spatial plot of the total shots scored from different locations on the court is illustrated in the plots below. 
 
 
+<img src="screenshots/nba-analytics/kobe-spatial-plot.png">{: width="900" height="500" }
+
 Coordinate (0,0) corresponds to the location of the basket. The court can also be split into different zones which are used by coaches for tactical purposes. The right spatial plot of shot zone regions are colour coded by distance ranges from the basket: less than 8ft, 8-16ft, 16-24ft, 24+ft, and shots from the back court. In the left figure, there are a high density of shots close to the basket and along the free throw line (blue arrow), where Kobe was known to score most of his points during offensive moves. In addition, a lower density of points can be seen at the right and left center parts of the court (black arrows), just beyond the three-point line (boundary of orange and red region in right figure) and along the restricted area (green arrow).
 
 A dual boxplot generated in Tableau is shown below illustrating the total shots scored and the percentage of shots scored for each season of Kobe Bryant’s 20 year career. 
 
+<img src="screenshots/nba-analytics/boxplots.jpg">{: width="1000" height="600" }
 
 He shows a clear preference for shooting closer to the basket (less than 8ft) with higher accuracy for majority of his career up until the 2013-2014 season. These are represented by the green outliers in both boxplots. The yellow outliers represent shots made from the back court which Kobe hardly attempted as there is a very slim chance of scoring. As Kobe Bryant aged, he showed an increased preference to the long distance shots (24 feet from the basket or beyond the 3 point line). For his final season (2015-2016), he attempted far more shots from beyond a 24 feet range (red dot) which is inevitable as his speed and agility decreased with age. However, interestingly he was less successful in scoring these shots compared to the shots made at less than 8ft (green dot). We can also see an interesting pattern developing from the 2013 season onwards, where he makes considerably less shots. 
 
 The histogram of total shots (and shot accuracy colour coded) made at different distances shows a sharp peak at very small distances close to the rim, a broader peak at mid-range distances and a narrower peak at larger distances away from the rim. This also verifies Kobe’s preference for shooting closer to the rim and also achieving a high shot accuracy (red bar). His accuracy then drops off (green) but is still consistent up to 25 ft from the basket (3-point line) after which it tails off (light blue). 
 
+<img src="screenshots/nba-analytics/boxplots-shots.png">{: width="900" height="500" }
+
 
 The plot below illustrates how much of an impact Kobe has at different times of a 12 minute game quarter. He tends to be more successful during the middle of the quarter (dark blue bars) compared to the last minutes of the quarter where he attempts more shots but has a relatively poorer accuracy.
-a)
 
+<img src="screenshots/nba-analytics/heatmap.jpg">{: width="900" height="500" }
 
 ## Dimensionality Reduction
 
 
 The next stage in the analysis would be to investigate whether the dimensions in the dataset can be reduced to remove variables which are highly correlated to improve model performance in the next stage in the analysis process. Principal Component Analysis (PCA) [6] [10] is one such technique which transforms the original variables into new variables called principal components (normalized linear combinations of the original predictors in the dataset). The first component captures the maximum variance in the dataset whilst the second component which is orthogonal to the first (since it is uncorrelated with the first component) should capture some of the remaining variance. This technique primarily works with variables containing continuous numerical values. Three of our remaining features contain numerical continuous values and the remaining categorical, so we will only consider these three features. Another dimensionality reduction technique called Multiple Correspondence Analysis (MCA) [7] can be used to find associations between categorical variables by displaying the data on a 2d or 3d plot and hence reducing the number of columns in the dataset for the final analysis. However, this has not been applied in this analysis as all categorical variables are deemed to be important (due to my considerable knowledge of basketball gameplay) for building the model for shot prediction.
 The first step is to standardise the original dataset so the features have zero mean and unit variance. Alternatively, the features can be scaled to lie between zero and one. This is important before performing PCA as non-standardised variables can lead to large loadings for variables with high variance.
- The principal components will then be preferentially dependent on the variables with high loadings which can skew the results [6]. Standardisation is also an important step before the implementing any machine learning algorithms in the scikit- learn library in Python as performance may be affected if the individual features are not scaled.
+The principal components will then be preferentially dependent on the variables with high loadings which can skew the results [6]. Standardisation is also an important step before the implementing any machine learning algorithms in the scikit- learn library in Python as performance may be affected if the individual features are not scaled.
 
 ```python
 
@@ -105,8 +110,15 @@ plt.ylabel("PC 2")
 
 Following dimensionality reduction using the decomposition module in scikit-learn, a pareto plot of the 3 components is produced in the figure below, illustrating how much variance is accounted for by each component.
 
+<img src="screenshots/nba-analytics/pca-variance-barchart.jpg">{: width="400" height="500" }
 
-The percentage variance was roughly equally divided among the three components, although the first component accounted for slightly larger variation in the dataset (38% variance). Selecting the first two components would only account for 70% of the total variance in the dataset which would result in a significant loss of information and subsequently affect model performance. The scatter plot of principal component 1 and 2 in the figure shows a roughly symmetrical distribution in space with the points slightly more distributed along the first principal component PC1 (long thin tail) as expected. Dimensionality reduction could potentially result in a significant loss of information in this case. Hence all 3 original numerical features will be used for training models described above.
+The percentage variance was roughly equally divided among the three components, although the first component accounted for slightly larger variation in the dataset (38% variance). Selecting the first two components would only account for 70% of the total variance in the dataset which would result in a significant loss of information and subsequently affect model performance. 
+
+The scatter plot of principal component 1 and 2 in the figure below shows a roughly symmetrical distribution in space with the points slightly more distributed along the first principal component PC1 (long thin tail) as expected. 
+
+<img src="screenshots/nba-analytics/scatter-pca.jpg">{: width="400" height="500" }
+
+Dimensionality reduction could potentially result in a significant loss of information in this case. Hence all 3 original numerical features will be used for training models described above.
 
 
 ## Modelling and Validation of Results
@@ -188,7 +200,7 @@ print ''
 The plot shows the effect of increasing the number of trees and tree depth on the logarithmic loss (computed according to the definition on the Kaggle website) [11]. As number of trees are increased from 1 to 100, a relatively sharp reduction in the logarithmic loss is seen at 10 followed by a gradual improvement in accuracy. For the tree depth, a relatively big improvement in accuracy is seen at a depth of 10, followed by small sharp increase up to 20, after which any further increase in parameter value has minimal impact on accuracy. The optimal values for number of trees and depth are chosen where there is a dip in the plots (green arrows) at 10 and 90 respectively.
 
 
-
+<img src="screenshots/nba-analytics/logloss-trees.png">{: width="400" height="500" }
 
 
 The model performance can be evaluated by numerous classification metrics, the choice of which are very important. The most common being the classification accuracy which is the ratio of correct prediction made, as reported above [10]. However, this assumes a perfect class balance which is not the case in this dataset. Alternative metrics, include the confusion matrix, logarithmic loss and Receiver Operator Characteristic curve [6,10]. 
@@ -223,7 +235,7 @@ plot_confusion_matrix(cnf_matrix,classes = label_names, title='Confusion matrix,
 
 The confusion matrix  shows that the algorithm performed well when predicting the number of missed shots (True negatives: 3639) compared to predicting the number of scored shots (True positives: 1571). 
 
-
+<img src="screenshots/nba-analytics/confusion-matrix.jpg">{: width="400" height="500" }
 
 It often misclassified the number of scored shots (False negatives: 1856). In contrast the number of missed shots were misclassified less frequently (False positive: 644). As a result, a lower precision (0.46) and higher recall (0.71) was computed. The weighted F1 score computed in scikit-learn takes into account class imbalance and was computed as 0.66. This was slightly lower but comparable to the test accuracy score listed above.
 

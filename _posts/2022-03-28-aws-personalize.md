@@ -1,7 +1,7 @@
 ---
 title: "AWS Personalize for recommending new movies to users, based on their ratings to other similar movies"
-categories: ['aws','personalize','machine learning', 'recommendation', 'movies']
-tags: ['aws','personalize','machine learning', 'recommendation', 'movies']
+categories: ['machine learning','personalize','machine learning', 'recommendation', 'movies']
+tags: ['machine learning','personalize','machine learning', 'recommendation', 'movies']
 url: https://github.com/ryankarlos/AWS-ML-services
 comments: true
 ---

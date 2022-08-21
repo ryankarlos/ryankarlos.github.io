@@ -1,7 +1,7 @@
 ---
 title: "Using AWS Data Pipeline to automate movement of data between AWS services"
-categories: ['aws','data-pipeline','s3', 'RDS', 'Redshift']
-tags: ['aws','data-pipeline','s3', 'RDS', 'Redshift']
+categories: ['serverless','data-pipeline','s3', 'RDS', 'Redshift']
+tags: ['serverless','data-pipeline','s3', 'RDS', 'Redshift']
 url: https://github.com/ryankarlos/AWS-ETL-Workflows
 comments: true
 ---
@@ -19,7 +19,7 @@ This helps create complex data processing workloads that are fault tolerant, rep
 {% endcapture %}
 
 
-{{ products | replace_first:"## Creating the different DataPipelines" | replace_first:"Refer to these [instructions](s3_to_redshift)"  }}
+{{ products | replace_first:"## Creating the different DataPipelines" | replace_first:"Refer to these [instructions](s3_to_redshift)" }}
 
 
-
+{{products1 | replace_first:'# Data Pipeline S3 to Redshift' | replace: '##', "#####"}}

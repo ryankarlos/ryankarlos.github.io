@@ -1,7 +1,7 @@
 ---
 title: "Scheduling starting and stopping RDS instances with AWS Eventbridge"
-categories: ['aws','eventbridge','rds', 'scheduling', 'lambda']
-tags: ['aws','eventbridge','rds', 'scheduling', 'lambda']
+categories: ['aws', 'eventbridge','rds', 'scheduling', 'lambda']
+tags: ['aws', 'eventbridge','rds', 'scheduling', 'lambda']
 url: https://github.com/ryankarlos/AWS-ETL-Workflows
 comments: true
 ---
@@ -13,3 +13,4 @@ ___
 
 
 {{ products | replace_first:"## Scheduling starting and stopping RDS instances"  }}
+

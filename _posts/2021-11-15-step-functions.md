@@ -1,7 +1,7 @@
 ---
 title: "Orchestrating ETL workflow using AWS Step Function"
-categories: ['aws','step function','glue', 'etl', 'states', 'athena']
-tags: ['aws','step function','glue', 'etl', 'states', 'athena']
+categories: ['servlerless','step function','glue', 'etl', 'states', 'athena']
+tags: ['serverless','step function','glue', 'etl', 'states', 'athena']
 url: https://github.com/ryankarlos/AWS-ETL-Workflows
 comments: true
 ---

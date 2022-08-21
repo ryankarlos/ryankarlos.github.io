@@ -1,7 +1,7 @@
 ---
 title: "Setting up AWS Code Pipeline to automate deployment of tweets streaming application"
-categories: ['aws','lambda','code pipeline', 'ci-cd']
-tags: ['aws','lambda','code pipeline', 'ci-cd']
+categories: ['serverless','lambda','code pipeline', 'ci-cd']
+tags: ['serverless','lambda','code pipeline', 'ci-cd']
 url: https://github.com/ryankarlos/AWS-CICD
 comments: true
 ---

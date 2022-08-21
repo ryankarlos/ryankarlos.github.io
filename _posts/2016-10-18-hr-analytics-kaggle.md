@@ -26,7 +26,16 @@ The following is analysis on carried out a Kaggle dataset using the Machine Lear
 | Left (target variable) | Categorical| N/A | N/A |
 
 
-As a next step, the dataset was explored by visualising a correlation heat map to gain a first intuition of predictive capability of our features. The correlation heat map in figure 1a displays the correlation between features themselves and the target variable. Most of the features show only very little correlation with each other as well as with our “left” target variable. One strong correlation can be observed between the target variable and the satisfaction level of approximately -0.5. Figure 1b depicts violin plots of the satisfaction level grouped by the salary and promotion_last_5years features. The yellow colour represents the employees which left the company. From this plot, we can conclude that the salary level is not a strong predictor but that some features such as salary and promotion_last_5years together can enhance our model’s predictive capability.
+As a next step, the dataset was explored by visualising a correlation heat map to gain a first intuition of predictive capability of our features. The correlation heat map displays the correlation between features themselves and the target variable. 
+
+<img src="screenshots/hr-analytics/corr-heatmap.png" width="600" height="500">
+
+
+Most of the features show only very little correlation with each other as well as with our “left” target variable. One strong correlation can be observed between the target variable and the satisfaction level of approximately -0.5. 
+
+The violin plot shows the satisfaction level grouped by the salary and promotion_last_5years features. The yellow colour represents the employees which left the company. From this plot, we can conclude that the salary level is not a strong predictor but that some features such as salary and promotion_last_5years together can enhance our model’s predictive capability.
+
+<img src="screenshots/hr-analytics/violinplot.png" width="600" height="500">
 
 Some of the features, such as the Avg. hours per month lies on a much higher scale than the rest of the features. Therefore, the features were standardised to μ = 0 and σ = 1 to make sure that no feature is skewing the algorithm results towards the features on higher scales. We defined
 a scaling function in Matlab to output the scaled training data matrix as well as the corresponding μ and σ  of every feature column.
@@ -151,15 +160,13 @@ fitcecoc(Xtrain, ytrain, 'OptimizeHyperparameters', params,...
 
 ```
 
-Such as with SVM, a HP grid search was conducted with MLP as well. The Neural Computing Toolbox [9] does not implement a grid search so this had to be coded in manually. The first two parameters set the number of hidden neurons in each layer and the number of layers. The higher this value, the more capacity the network has to model complex input distributions [6]. A range of values have been chosen for the learning rate. The smaller the learning rate, the longer it takes to reach the minimum of the error function [6]. Conversely, if the learning rate is too large, there is a possibility of the weight updates diverging from the error minimum. 
+Such as with SVM, a HP grid search was conducted with MLP as well. The Neural Computing Toolbox [9]does not implement a grid search so this had to be coded in manually. The first two parameters set the number of hidden neurons in each layer and the number of layers. The higher this value, the more capacity the network has to model complex input distributions [6]. A range of values have been chosen for the learning rate. The smaller the learning rate, the longer it takes to reach the minimum of the error function [6]. Conversely, if the learning rate is too large, there is a possibility of the weight updates diverging from the error minimum. 
 
 The chosen HP tuning range for MLP are listed below
 
 * Number of hidden neurons: [60, 100]
 * Number of layers: [3, 7]
 * Learning rate: [0.01, 0.1, 0.9]
-
-
 
 During the HP tuning of the MLP, a fast algorithm based on Scaled Conjugate Gradient (SCG) backpropagation method [11], developed by Moller, for updating weights and bias values was chosen. The traditional backpropagation algorithms, adjust the weights in the direction the gradient is decreasing the fastest. This does not necessarily result in fastest convergence. By searching along the conjugate direction compared to the steepest gradient direction, quicker convergence is achieved [11]. The error in classification is minimised using the mean square error. 
 
@@ -258,19 +265,22 @@ perf_train_crossentropy =  crossentropy(net,t_train,pred_train)% crossentropy
 
 An early stopping criterion was set so that the training terminates if the validation error continues to increase for a certain number of iterations [2]. The validation and training errors normally decrease during initial training but as the network starts to overfit, the validation error increases. In such a case, training would stop once a certain number of iterations have passed [2]. The best validation performance (mean square error: 0.015), was recorded at epoch 493 when the training stopped before the maximum number of epochs (500) were reached.
 
+<img src="screenshots/hr-analytics/performance-curve-mlp.jpg" width="600" height="500">
 
 The mean square error from the training set decreases with the number of epochs whilst the error on the validation set decreases up to epoch 50, and then increases relative to the training set. In this case, the early stopping criterion was not satisfied since the validation error remained relatively consistent through this training run. Overall, we achieved a training accuracy of 98.5%. Although the cross-entropy “performance” metric is preferred for this type of problem, both the mean square error and cross entropy performance metrics gave identical values (0.0184).
 
 
 ### Test set evaluation
 
-In our case, the recall rate is of special interest because we want to mitigate the effect of misclassifying people as “not left”. As such, we set the focus on comparing the two test set results based on their recall rates. An illustration of the confusion matrices for both models is shown in the figure below. 
+In our case, the recall rate is of special interest because we want to mitigate the effect of misclassifying people as “not left”. As such, we set the focus on comparing the two test set results based on their recall rates. The confusion matrix for SVM and MLP are shown in the left and right plots below. 
 
+<div> 
+<img src="screenshots/hr-analytics/cm-svm.jpg" alt="SVM" width="350" height="400"><img src="screenshots/hr-analytics/cm-mlp.jpg" alt="MLP" width="350" height="400">
+</div>
 
-
-
+<p>
 SVM resulted in a recall rate of 91% whilst MLP led to 93.3%, an important improvement. For precision, we can see the reverse effect with a precision rate of 97.1% for SVM vs 93.8% for MLP. The final test set accuracy scores can also be observed in the confusion matrices (in the blue square) and shows that in terms of accuracy, SVM is better with 97.1% compared to MLP of 96.8%.
-
+</p>
 
 ## Conclusion
 

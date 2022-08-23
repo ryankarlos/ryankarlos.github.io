@@ -8,9 +8,9 @@ comments: true
 ___
 
 {% capture products %}
-{% remote_include https://raw.githubusercontent.com/ryankarlos/AWS-CICD/master/README.md %}
+{% remote_include https://raw.githubusercontent.com/ryankarlos/AWS-CICD/master/projects/deploy-lambda-image/README.md %}
 {% endcapture %}
 
 
 
-{{ products | replace_first:"## AWS CodePipeline"  }}
+{{ products | replace_first:"## AWS CodePipeline" }}

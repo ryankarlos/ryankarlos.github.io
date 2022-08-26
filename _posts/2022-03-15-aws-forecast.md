@@ -4,6 +4,7 @@ categories: ['forecast','machine learning', 'time series']
 tags: ['forecast','machine learning', 'time series']
 url: https://github.com/ryankarlos/AWS-ML-services
 comments: true
+math: true
 ---
 ___
 {% capture products %}

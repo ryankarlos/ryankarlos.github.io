@@ -1,5 +1,5 @@
 ---
-title: "Forecasting the daily log-scale page views of an American Football Quarterback's Wikipedia page using AWS Forecast"
+title: "Forecasting American Football Fever in AWS using Wikipedia Page Hits"
 categories: ['forecast','machine learning', 'time series']
 tags: ['forecast','machine learning', 'time series']
 url: https://github.com/ryankarlos/AWS-ML-services

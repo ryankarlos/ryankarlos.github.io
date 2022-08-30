@@ -11,3 +11,6 @@ ___
 {% capture products %}
 {% remote_include https://raw.githubusercontent.com/ryankarlos/tsqlt_demo/master/README.md %}
 {% endcapture %}
+
+
+{{ products }}

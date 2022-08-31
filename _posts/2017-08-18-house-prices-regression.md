@@ -29,7 +29,7 @@ test.head(5)
 Some of the columns in the training dataset seem to have a lot of missing values. It would be sensible to drop 
 these columns if the number of missing values comprises more than some threshold (say 15%) of the data in the column.
 
-```
+```python
 frac = train.shape[0]*0.9 # number of non NA values we are satisfied with in each column . Lets say we need at least 90% non-NA values (columns with more than these will be dropped)
 percent_missing = (100*(train.isnull().sum())/train.shape[0]).round(1) 
 percent_missing.sort_values(ascending = False).head(20)
@@ -161,6 +161,8 @@ f,ax = plt.subplots(figsize =(10,10))
 sns.heatmap(corr_matrix, vmax=1,square=True)
 ```
 
+<img src="screenshots/house-prices/heat-map.png">
+
 We find similar variables correlating with each other e.g. `GarageCars` and `GarageArea`, `1stFlrSF` and `TotalBsmtSF`, 
 `GLivArea` and `TotRmsAbvGrd`, `Kitchen`/`external_Qual` shows some correlation with the overall quality 
 (compound variable) and year built. So we can drop one of the variables which show multicollinearity. Here `GarageArea`,
@@ -198,32 +200,28 @@ rules of thumb like: Any value, which is beyond the range of -1.5 x IQR to 1.5 x
 standard deviation away from mean If a few isolated points lie outside the general trend line, then they can be deleted.
 
 ```python
-plt.figure(1)
+import seaborn as sns
+import matplotlib.pyplot as plt 
+%matplotlib inline
+
+plt.figure()
 sns.set(color_codes=True)
 ax = sns.regplot(x="GrLivArea", y="SalePrice", data=train)
 plt.title('Sale Price vs Ground Living Area')
 
-plt.figure(2)
-sns.set(color_codes=True)
-ax = sns.regplot(x="TotalBsmtSF", y="SalePrice", data=train)
-plt.title('Sale Price vs Total Basement size')
-
-plt.figure(3)
-sns.set(color_codes=True)
-ax = sns.regplot(x="FullBath", y="SalePrice", data=train, fit_reg = False)
-plt.title('Sale Price vs Number of bathrooms')
-
-plt.figure(4)
-sns.set(color_codes=True)
-ax = sns.regplot(x="YearBuilt", y="SalePrice", data=train)
-plt.title('Sale Price vs Year Built')
-
-
-plt.figure(5)
-sns.set(color_codes=True)
-ax = sns.regplot(x="GarageCars", y="SalePrice", data=train, fit_reg = False)
-plt.title('Sale Price vs Garage Cars')
 ```
+
+<img src="screenshots/house-prices/scatter/groundliving.png">
+
+<img src="screenshots/house-prices/scatter/basementsize.png">
+
+<img src="screenshots/house-prices/scatter/numberbathrooms.png">
+
+<img src="screenshots/house-prices/scatter/yearbuilt.png">
+
+<img src="screenshots/house-prices/scatter/garagecars.png">
+
+
 Four outliers in the graphs above will be dropped. These corresponding to `GrLivArea` > 4500 and 
 `SalePrice` between 7000 and 8000 in the `Sale Price vs Year Built` graph. The isolated 
 point  in the `Sale Price vs Total Basement Size` graph, corresponding to `TotalBsmtSF` > 6000 
@@ -236,92 +234,53 @@ train =train.drop(train[train.SalePrice == 755000].index)
 train =train.drop(train[train.SalePrice == 745000].index)
 ```
 
-### Normality and linearity
-
-```python
-plt.figure(1)
-sns.distplot(train['SalePrice'], 50)
-plt.xlabel("Sale prices in dollars")
-plt.ylabel("Number of houses with sales price") 
-plt.title("Histogram of sales prices of homes")
-plt.grid(True) 
-plt.show()
-
-
-plt.figure(2)
-sns.distplot(train['TotalBsmtSF'], 50)
-plt.xlabel("Size of basement")
-plt.ylabel("Number of houses with given basement size") 
-plt.title("Histogram of basement size")
-plt.grid(True) 
-plt.show()
-
-plt.figure(3)
-sns.distplot(train['GrLivArea'], 50)
-plt.xlabel("Ground Area")
-plt.ylabel("Number of houses with sales price") 
-plt.title("Histogram of sales prices of homes")
-plt.grid(True) 
-plt.show()
-```
-
 ### Standardisation of datasets
+
+
+<img src="screenshots/house-prices/histogram/basementsize.png">
+
+<img src="screenshots/house-prices/histogram/groundarea.png">
+
 
 Since univariate distributions above are skewed, the data needs to be standardised so individual features are more
 or less look like standard normally distributed data: Gaussian with zero mean and unit variance. One way of doing
 this is by removing the mean value of each feature, then scale it by dividing non-constant features by their standard
-deviation. Alternatively, a log transofrmation can be applied althought it can’t be applied to zero or negative values.
+deviation. Alternatively, a log transformation can be applied althought it can’t be applied to zero or negative values.
 Our second histogram above shows some zero values for basement size which would not be suitable for log transformation
 unless they are removed.
 
+We can do this using the code block below. This will log transform the histogram of ground living area.
 
 ```python
+import numpy as np 
+import matplotlib.pyplot as plt 
+import seaborn as sns
+
 train_new = train.drop(train[train['TotalBsmtSF']==0].index, axis =0)
 
 train_new.loc[:,['SalePrice','TotalBsmtSF','GrLivArea','YearBuilt']] = np.log(train_new[['SalePrice','TotalBsmtSF','GrLivArea','YearBuilt']])
-plt.figure(1)
-sns.distplot(train_new['SalePrice'], 50, color = "g")
-plt.xlabel("log Sale prices")
-plt.ylabel("Number of houses with given price") 
-plt.title("Histogram of sales prices following log transformation")
-plt.grid(True) 
-plt.show()
 
-plt.figure(2)
-sns.distplot(train_new['TotalBsmtSF'], 50, color ="g")
-plt.xlabel("Size of basement")
-plt.ylabel("Number of houses with given basement size") 
-plt.title("Histogram of basement size")
-plt.grid(True) 
-plt.show()
-
-plt.figure(3)
-sns.distplot(train_new['GrLivArea'], 50, color ="g")
-plt.xlabel("Sale prices in dollars")
-plt.ylabel("Number of houses with sales price") 
-plt.title("Histogram of sales prices of homes")
-plt.grid(True) 
-plt.show()
-```
-The distrbutions are now centred and more normally distributed and less skewed.
-
-### Scatter plots after log transformation
-
-We can see that the dense clutter in the scatter plots are now shifted towards the centre following log transormation. 
-As a result, the data will exhibit less less heteroskedasticity (absence of the conical shape like in the 
-previous plots).
-
-```python
 plt.figure()
 sns.set(color_codes=True)
 ax = sns.regplot(x="GrLivArea", y="SalePrice", data=train_new)
 plt.title('Log Sale Price vs Log Ground Living Area')
-
-plt.figure()
-sns.set(color_codes=True)
-ax = sns.regplot(x="TotalBsmtSF", y="SalePrice", data=train_new)
-plt.title('Log Sale Price vs Log Total Basement size')
 ```
+
+<img src="screenshots/house-prices/histogram/loggroundarea.png">
+
+The distribution is now centred and more normally distributed and less skewed.
+
+Similarly we can do the same for the other histograms for `TotalBsmtSF`
+
+<img src="screenshots/house-prices/histogram/logbasementsize.png">
+
+We can see that the dense clutter in the scatter plots are now shifted towards the centre following log 
+transormation. As a result, the data will exhibit less less heteroskedasticity (absence of the conical shape 
+like in the previous plots).
+
+<img src="screenshots/house-prices/scatter/logbasementsize.png">
+
+<img src="screenshots/house-prices/scatter/loggroundarea.png">
 
 
 Now lets apply all the pre-processing tasks above to the test data. We can directly keep the same features in the 
@@ -396,14 +355,15 @@ from sklearn.cross_validation import cross_val_score,cross_val_predict,Stratifie
 from sklearn import linear_model, svm
 from sklearn.ensemble import GradientBoostingRegressor as xgb 
 from sklearn.metrics import confusion_matrix,accuracy_score,f1_score
+from sklearn import preprocessing 
 
-# Ridge Regression with built in cross validation
+# Ridge Regression 
 
 clf_Ridge = linear_model.Ridge(fit_intercept=True, normalize=True, alpha = 0.01) 
 clf_Ridge.fit(train_x, train_y)  
 clf_Ridge_score = cross_val_score(clf_Ridge,train_x, train_y, cv = 10, scoring = 'r2')
 
-# Support Vecotr Regression #####
+# Support Vector Regression 
 X_scaler = preprocessing.StandardScaler()
 train_x = X_scaler.fit_transform(train_x)
 clf_SVR = svm.SVR(kernel='rbf', gamma='auto',C = 1,epsilon = 0.1)
@@ -429,6 +389,14 @@ print("The R2 score using for Ridge is %f" % (clf_Ridge_score.mean()))
 print("The R2 score for Lasso is %f" % (clf_lasso_score.mean())) 
 print("The R2 score for SVR is %f" % (clf_SVR_score.mean())) 
 print("The R2 score for Gradient Boosting Regression is %f" % (clf_xgb_score.mean())) 
+
+
+'''
+The R2 score using for Ridge is 0.825067
+The R2 score for Lasso is 0.825010
+The R2 score for SVR is 0.826482
+The R2 score for Gradient Boosting Regression is 0.834290
+'''
 
 ```
 

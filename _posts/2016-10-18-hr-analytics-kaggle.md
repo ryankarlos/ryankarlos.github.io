@@ -2,9 +2,7 @@
 title: "A Comparison of Neural Networks and Support Vector Machines Algorithm Performance in Human Resource Analytics"
 categories: ['kaggle','svm','neural-networks', 'matlab']
 tags:  ['kaggle','svm','neural-networks', 'matlab']
-author:
-- Ryan Nazareth
-- Hannes Draxl
+author: Ryan Nazareth and Hannes Draxl
 comments: true
 ---
 

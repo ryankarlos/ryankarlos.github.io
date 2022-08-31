@@ -41,7 +41,7 @@ research themes in the corpus through words such as ‘professor working’, ‘
 ‘funding’, ‘project’, due to the large number of tweets related to publications and 
 cutting-edge research into snakebite treatment around the world. 
 
-<img src="screenshots/twitter-analytics/bag-of-words.png">{: width="400" height="500" }
+<img src="screenshots/twitter-analytics/bag-of-words.png">
 
  
 The stacked bar chart plotted in Tableau showing thethe top 10 users who accumulated the most favourites and 
@@ -58,7 +58,7 @@ Interestingly, the Spanish bot account @Belxab generated the second most number 
 effect of snake venom on blood”. 
 
 
-<img src="screenshots/twitter-analytics/tweet-freq.png">{: width="400" height="500" }
+<img src="screenshots/twitter-analytics/tweet-freq.png">
 
 The global distribution of tweets which were favourited or retweeted at least once for the aggregate 
 6-month period of this study is shown in figure 2. New York had the highest number of favourites and 
@@ -78,7 +78,7 @@ the west and Abuja in central region were mainly from local news accounts. None 
 were in the list of the top 10 favourited users during the entire 6-month period .
 
 
-<img src="screenshots/twitter-analytics/map.png">{: width="400" height="500" }
+<img src="screenshots/twitter-analytics/map.png">
 
 
 The `topicmodels` package in R programming language provides an interface to the source code for a Latent 

@@ -1,5 +1,5 @@
 ---
-title: "Use Machine Learning Regression Models to Predict House Prices"
+title: "Using Advanced Regression Techniques to Predict House Prices"
 categories: ['kaggle','regression','machine learning', 'boosted trees']
 tags:  ['kaggle','regression','machine learning', 'boosted trees']
 author: Ryan Nazareth

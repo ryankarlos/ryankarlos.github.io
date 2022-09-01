@@ -253,10 +253,10 @@ below to generate a normal probability plot for `GrLivArea`. A straight, diagona
 indicates normally distributed data. However, in this case, there is positive skew which
 indicates non-normality.
 
-``
+```python
 from scipy import stats
 stats.probplot(df_train['GrLivArea'], plot=plt)
-``
+```
 
 <img src="screenshots/house-prices/probability-plots/groundarea.png">
 

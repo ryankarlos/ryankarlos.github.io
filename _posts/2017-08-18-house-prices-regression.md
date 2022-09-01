@@ -59,13 +59,13 @@ dtype: float64
 '''
 ```
 
-We can see certain variables 'PoolQC', 'MiscFeature', 'Alley', 'Fence', 'FireplaceQu' with a high proportion of 
+We can see certain variables `PoolQC`, `MiscFeature`, `Alley`, `Fence`, `FireplaceQu` with a high proportion of 
 missing values. Variables concerning Garage and Basmement also account for less than 5% missing values. We need to 
 inspect these categorical variables in more detail to determine if these are indeed 'missing values' or labelled 
 NaN because of an absence of a feature eg. garage, fence, alley etc.For the latter case, we need to set the NaN 
 values to 'None'.
 
-Grouping all categorical variables with NaN values. Variables belonging to similar categories have been grouped 
+Grouping all categorical variables with `NaN` values. Variables belonging to similar categories have been grouped 
 together for comparison e.g. Basement, MasVnr, Garage etc. Non-categorical variables have also been included 
 (e.g Pool Area, MasVnrArea) if they help in deciding if the NaN in categorical variable of the same category 
 need to be set to None or dropped. If PoolQC is NaN and PoolArea is 0 it is highly likely that the NaN means an 
@@ -236,18 +236,35 @@ train =train.drop(train[train.SalePrice == 745000].index)
 
 ### Standardisation of datasets
 
+Standardisation is a common requirement for most sklearn estimators. Features in dataset need
+to follow a normal distribution (zero mean and unit variance). If this is not the case, then the 
+models will perform badly [2].
+
+Lets look at the distribution of some of the continuos variables like `TotalBsmtSF` and `GrLivArea` using
+`seaborn.distplot()` function. 
 
 <img src="screenshots/house-prices/histogram/basementsize.png">
 
 <img src="screenshots/house-prices/histogram/groundarea.png">
 
+We can also use  `scipy.stats.probplot` to generate a probability plot of 
+feature against the quantiles of normal distribution [3]. For example use the code block
+below to generate a normal probability plot for `GrLivArea`. A straight, diagonal line 
+indicates normally distributed data. However, in this case, there is positive skew which
+indicates non-normality.
 
-Since univariate distributions above are skewed, the data needs to be standardised so individual features are more
-or less look like standard normally distributed data: Gaussian with zero mean and unit variance. One way of doing
-this is by removing the mean value of each feature, then scale it by dividing non-constant features by their standard
-deviation. Alternatively, a log transformation can be applied althought it can’t be applied to zero or negative values.
-Our second histogram above shows some zero values for basement size which would not be suitable for log transformation
-unless they are removed.
+``
+from scipy import stats
+stats.probplot(df_train['GrLivArea'], plot=plt)
+``
+
+<img src="screenshots/house-prices/probability-plots/groundarea.png">
+
+Since distributions above are skewed, the data needs to be standardised to make them normally distributed.
+One way of doing this is by removing the mean value of each feature, then scale it by dividing non-constant features
+by their standard deviation [2]. Alternatively, a log transformation can be applied althought it can’t be 
+applied to zero or negative values. The histogram above also shows some zero values for basement size 
+which would not be suitable for log transformation unless they are removed.
 
 We can do this using the code block below. This will log transform the histogram of ground living area.
 
@@ -274,14 +291,22 @@ Similarly we can do the same for the other histograms for `TotalBsmtSF`
 
 <img src="screenshots/house-prices/histogram/logbasementsize.png">
 
-We can see that the dense clutter in the scatter plots are now shifted towards the centre following log 
-transormation. As a result, the data will exhibit less less heteroskedasticity (absence of the conical shape 
-like in the previous plots).
+We also need to treat heteroskedasticity i.e. dependent variable(s) exhibit unequal levels of variance 
+across the range of predictor variable. This normally manifests as a cone-like shape in a scatterplot
+between the two variables, as the scatter (or variability) of the dependent variable widens or 
+narrows as the value of the independent variable increases. This is evident in the scatter plots 
+of `SalePrice` vs `TotalBsmtSF` and `GrLivArea` shown previously, where there is a larger dispersion on one side of the
+graph compared to the other.
+
+Lets now generate the same plots following log transformation.
 
 <img src="screenshots/house-prices/scatter/logbasementsize.png">
 
 <img src="screenshots/house-prices/scatter/loggroundarea.png">
 
+We can now see that the dense clutter in the scatter plots are now shifted towards the centre following log 
+transformation. As a result, the data will exhibit less heteroskedasticity (absence of the conical shape 
+like in the previous plots).
 
 Now lets apply all the pre-processing tasks above to the test data. We can directly keep the same features in the 
 test set as we did in the training set. We can then check if we need to replace any missing values. We will not need 
@@ -304,12 +329,11 @@ test.loc[:,['TotalBsmtSF','GrLivArea', 'YearBuilt']] = np.log(test[['TotalBsmtSF
 
 Our test data is now ready for testing our model on once we have trained it on the training dataset
 
-### Modelling
+## Modelling
 
-
-Since the `fit()` method of scikit-learn estimator, expects the features and target variables to be passed in as separate 
-arrays, we will create the  `train_x` and `train_y` objects containing only the features and response 
-variable respectively.
+Since the `fit()` method of scikit-learn estimator, expects the features and target variables to be passed 
+in as separate arrays, we will create the  `train_x` and `train_y` objects containing only the features 
+and response variable respectively.
 
 ```python
 train_y = train_new['SalePrice']  
@@ -330,7 +354,6 @@ train_x = train_new.drop('SalePrice', axis =1)
 |8|	7|	7.480992|	2|	6.858565|	2|	7.565793|
 |9|	5|	6.981935|	1|	6.898715|"	1|	7.569928|
 
-
 We will now try a number of models to solve the regression problem. These include the following:
 
 Ridge regression: addresses some of the problems of Ordinary Least Squares by imposing a penalty on the size of 
@@ -349,6 +372,8 @@ and at the same time is as flat as possible.The free parameters in the model are
 optimization of arbitrary differentiable loss functions. In each stage a regression tree is fit on the negative 
 gradient of the given loss function.
 
+We use 10 fold cross validation and r2 for the cross validation score for each fold. The metric is
+then reported as an average over all folds.
 
 ```python
 from sklearn.cross_validation import cross_val_score,cross_val_predict,StratifiedKFold
@@ -400,10 +425,10 @@ The R2 score for Gradient Boosting Regression is 0.834290
 
 ```
 
-We can now use the best performing model `clf_xgb` to generate predictions on unseen data. 
-However, before doing this we need to apply the transformation to features, using the  mean and standard deviation 
-computed on the training dataset, by calling the `transform()` method on the test set.
-
+The Gradient Boosting Regression had the highest R2 score (0.834) followed by the SVR (0.826)
+We can now use the Gradient Boosting Regression model to generate predictions on unseen data. 
+However, before doing this we need to re-apply the transformation to test set, using the 
+mean and standard deviation computed previously on the training dataset.
 We then need to calculate the exponent of the results, as data is in log scale.
 
 ```python
@@ -417,3 +442,5 @@ predict = pd.DataFrame(np.exp(clf_xgb.predict(test_x)), columns= ['SalePrice'])
 ## References
 
 1 Dataset Source https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data
+2 Preprocessing Data sklearn doc https://scikit-learn.org/stable/modules/preprocessing.html
+3. Scipy Probability Plot doc https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.probplot.html

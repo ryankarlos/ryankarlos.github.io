@@ -8,6 +8,7 @@ comments: true
 
 In this example, we will use the Ames, Iowa Housing dataset from Kaggle to fit a model to predict 
 the final price of each house using the 79 explanatory variables in the dataset [1]. 
+The code for this exercise can also be accessed from [github](https://github.com/ryankarlos/House-Prices-Advanced-Regression).
 Download the `train.csv` and `test.csv` from the Kaggle website and store and read the data into a 
 pandas dataframe replacing the path depending on where it is stored.
 

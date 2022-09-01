@@ -216,7 +216,7 @@ plt.title('Sale Price vs Ground Living Area')
 
 <img src="screenshots/house-prices/scatter/basementsize.png">
 
-<img src="screenshots/house-prices/scatter/numberbathrooms.png">
+<img src="screenshots/house-prices/scatter/numbathrooms.png">
 
 <img src="screenshots/house-prices/scatter/yearbuilt.png">
 
@@ -288,7 +288,7 @@ plt.title('Log Sale Price vs Log Ground Living Area')
 
 The distribution is now centred and more normally distributed and less skewed.
 
-Similarly we can do the same for the other histograms for `TotalBsmtSF`
+Similarly we can do the same for the other histograms for `TotalBsmtSF`.
 
 <img src="screenshots/house-prices/histogram/logbasementsize.png">
 
@@ -338,8 +338,7 @@ and response variable respectively.
 
 ```python
 train_y = train_new['SalePrice']  
-train_x = train_new.drop('SalePrice', axis =1) 
-
+train_x = train_new.drop('SalePrice', axis =1)
 ```
 
 |    |OverallQual|GrLivArea|GarageCars|TotalBsmtSF|FullBath|YearBuilt|
